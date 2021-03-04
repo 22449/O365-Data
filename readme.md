@@ -1,7 +1,7 @@
 # Deploy Function App for getting Office 365 Management API data into Azure Sentinel
 This function app will poll O365 Activity Managment API every 5 mins for logs.  It is designed to get Audit.General and DLP.All events.
 
-## Deployment and Configuration AAD
+## Deployment and Configuration
 ### Add AAD App Permissions
 1. Go to Azure Active Directory / App Registrations
 2. Create +New Registration
