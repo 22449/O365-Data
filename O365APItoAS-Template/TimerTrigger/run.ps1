@@ -1,47 +1,6 @@
-# Input bindings are passed in via param block.
 param($Timer)
-
-#Import-module .\TimerTrigger\modules\Write-OMSLogfile.ps1
-###################################################################################
-#  API Log to OMS Log Analytics Workspace
-###################################################################################
-#Credit: https://github.com/tsrob50/LogAnalyticsAPIFunction
 function Write-OMSLogfile {
-    <#
-    .SYNOPSIS
-    Inputs a hashtable, date and workspace type and writes it to a Log Analytics Workspace.
-    .DESCRIPTION
-    Given a  value pair hash table, this function will write the data to an OMS Log Analytics workspace.
-    Certain variables, such as Customer ID and Shared Key are specific to the OMS workspace data is being written to.
-    This function will not write to multiple OMS workspaces.  Build-signature and post-analytics function from Microsoft documentation
-    at https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-data-collector-api
-    .PARAMETER DateTime
-    date and time for the log.  DateTime value
-    .PARAMETER Type
-    Name of the logfile or Log Analytics "Type".  Log Analytics will append _CL at the end of custom logs  String Value
-    .PARAMETER LogData
-    A series of key, value pairs that will be written to the log.  Log file are unstructured but the key should be consistent
-    withing each source.
-    .INPUTS
-    The parameters of data and time, type and logdata.  Logdata is converted to JSON to submit to Log Analytics.
-    .OUTPUTS
-    The Function will return the HTTP status code from the Post method.  Status code 200 indicates the request was received.
-    .NOTES
-    Version:        2.0
-    Author:         Travis Roberts
-    Creation Date:  7/9/2018
-    Purpose/Change: Crating a stand alone function.
-    .EXAMPLE
-    This Example will log data to the "LoggingTest" Log Analytics table
-    $type = 'LoggingTest'
-    $dateTime = Get-Date
-    $data = @{
-        ErrorText   = 'This is a test message'
-        ErrorNumber = 1985
-    }
-    $returnCode = Write-OMSLogfile $dateTime $type $data -Verbose
-    write-output $returnCode
-    #>
+
         [cmdletbinding()]
         Param(
             [Parameter(Mandatory = $true, Position = 0)]
@@ -259,6 +218,4 @@ $lastlogTime
 $headerParams = Get-AuthToken $env:clientID $env:clientSecret $env:domain $env:tenantGuid
 Get-O365Data $startTime $endTime $headerParams $env:tenantGuid
 
-
-# Write an information log with the current time.
 Write-Host "PowerShell timer trigger function ran! TIME: $currentUTCtime"
